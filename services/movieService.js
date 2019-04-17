@@ -13,7 +13,6 @@ movieService.getTitle = () =>{
 }
 
 movieService.searchByTitle =(search) =>{
-  console.log('heyyy')
   const name = `%${search}%`
   const sql = `SELECT * FROM movies 
     JOIN genres ON movies.genre_id = genres.id 
@@ -21,6 +20,18 @@ movieService.searchByTitle =(search) =>{
         WHERE Lower(movies.title) LIKE $[name]`
   return db.any(sql, {name})
   
+}
+
+movieService.getSingleMovie = (movieId) =>{
+
+  return db.any(`SELECT * FROM movies 
+  JOIN genres ON movies.genre_id = genres.id 
+    JOIN ratings ON movies.id = ratings.movie_id 
+      WHERE movies.id = $[movieId]`, {movieId})
+}
+
+movieService.getMovieByGenre = (genreId) =>{
+  return db.any('SELECT * FROM movies JOIN genres ON movies.genre_id = genres.id WHERE genres.id =$[genreId] ', {genreId})
 }
 
 

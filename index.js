@@ -5,6 +5,7 @@ const app = express();
 
 //Routes
 const movieRouter = require('./routes/movie');
+const genreRouter = require('./routes/genre');
 
 //Middleware
 app.use(cors());
@@ -18,6 +19,7 @@ app.get('/testing', (req, res)=>{
 })
 
 app.use('/movie', movieRouter)
+app.use('/genre', genreRouter)
 
 app.listen(4200, ()=>{
   console.log(`app is listening at port 4200`)

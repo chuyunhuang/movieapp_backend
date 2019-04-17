@@ -16,17 +16,42 @@ movieRouter.get('/', (req, res)=>{
 
 
 //Get Search Result by passing query
-movieRouter.get('/:search', (req, res)=>{
-  const {search}= req.params
-  console.log('BACKEND!!', req.params)
+// movieRouter.get('/:search', (req, res)=>{
+//   const {search}= req.params
 
-  movieService.searchByTitle(search)
+//   movieService.searchByTitle(search)
+//   .then((data)=>{
+//     res.json(data)
+//   })
+//   .catch((err)=>{
+//     res.json(err)
+//   })
+// })
+
+//Get single movie by passing id
+movieRouter.get('/:movieId', (req, res)=>{
+  console.log('BACKEND', req.params)
+  const {movieId} = req.params
+
+  movieService.getSingleMovie(movieId)
   .then((data)=>{
     console.log('route was hit', data)
     res.json(data)
   })
   .catch((err)=>{
-    console.log('error here', err)
+    console.log(err)
+  })
+})
+
+movieRouter.get('/genre/:genreId', (req, res)=>{
+  const {genreId} = req.params
+
+  movieService.getMovieByGenre(genreId)
+  .then((data)=>{
+    res.json(data)
+  })
+  .catch((err)=>{
+    res.json(err)
   })
 })
 
